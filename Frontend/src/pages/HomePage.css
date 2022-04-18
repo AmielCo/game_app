@@ -1,0 +1,13 @@
+.btn{
+    text-decoration: none;
+   background-color: #5f497d;
+    color: #fff;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
