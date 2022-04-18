@@ -8,8 +8,8 @@ const knexConfig = {
   client: "mysql",
   connection: {
     database: "gameapp",
-    user: "root",
-    password: "",
+    user: "sqluser",
+    password: "password",
   },
   pool: {
     min: 2,
