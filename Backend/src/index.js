@@ -4,6 +4,10 @@ import knex from "knex";
 import cors from "cors";
 import bodyParser from "body-parser";
 import logRoute from "./middlewares/logRoute.js";
+import userRoutes from "./routes/userRoutes.js";
+import scoresRoutes from "./routes/scoresRoutes.js";
+
+
 /* import authRoutes from "./routes/authRoutes.js";
  */ import knexConfig from "./data/knexfile.js";
 
@@ -18,6 +22,10 @@ app.use(cors());
 /* app.use("/auth", authRoutes);
  */
 
+app.use("/users", userRoutes);
+app.use("/scores", scoresRoutes);
+
+
 gameappDb.migrate
   .latest()
   .then((migration) => {
@@ -31,3 +39,4 @@ gameappDb.migrate
   .catch((err) => {
     console.log(err);
   });
+  export { gameappDb };
