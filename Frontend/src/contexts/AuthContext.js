@@ -23,11 +23,16 @@ export function AuthContextProvider({ children }) {
     console.log(user);
     await axios.post("http://localhost:8080/users/login", user).then((res) => {
       if (res.status === 201) {
+        setError(false);
+
         setCurrentUser(res.data.user[0]);
         setAuth(true);
         navigate("/LoggedInPage");
+      } else {
+        setError(true);
       }
-    });
+    })
+    .catch((err) => { setError(true); console.log(err)});
   };
 
   const logout = () => {

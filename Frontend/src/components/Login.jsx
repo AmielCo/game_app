@@ -14,7 +14,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuthContext();
+  const { login, error } = useAuthContext();
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -55,7 +55,7 @@ const Login = () => {
             onChange={handlePasswordChange}
           />
         </div>
-
+        {error && <div>Your information is incorrect.</div>}
         <button
           onClick={handleSubmit}
           type="button"
