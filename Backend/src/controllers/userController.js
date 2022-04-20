@@ -1,9 +1,9 @@
-import userModel from "../models/userModel.js";
+/* import userModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
 
 async function signup(req, res, next) {
   try {
-    const user = await userModel.signup(req.query);
+    const user = await userModel.signup(req.body);
     res.status(201).send({ user: user });
   } catch (err) {
     next(err);
@@ -11,34 +11,26 @@ async function signup(req, res, next) {
 }
 
 async function login(req, res, next) {
-  try {
-    const { email, password } = req.query;
-
-    const user = await userModel.login(email);
-
-    /*   if (user.length === 0) {
-            res.status(401).send("invalid username or password");
-            return;
-          } */
-    console.log(password);
-    console.log(user[0].password);
-    const validPassword =  bcrypt.compare(
-      password,
-      user[0].password,
-      function (err, result) {
-        // result == true
-      }
-    );
-    if (user) {
-      if (validPassword) {
-        res.send(user);
-      } else {
-        res.status(401).send("invalid username or password");
-      }
-    }
-  } catch (err) {
-    next(err);
-    }
+  res.status(201).send({ user: req.body });
 }
 
 export default { signup, login };
+ */
+
+import userModel from "../models/userModel.js";
+
+async function signup(req, res) {
+  const response = await userModel.signup(req.body);
+  if (response.status === "ok") res.send(response);
+  else res.status(401).json(response);
+}
+
+async function login(req, res) {
+  res.status(201).send(req.body);
+}
+
+async function logout(req, res) {
+  console.log("logOut");
+}
+
+export default { signup, login, logout };
