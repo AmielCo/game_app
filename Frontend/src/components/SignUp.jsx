@@ -6,45 +6,50 @@ First and last name
 Phone number
 */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SignUp.css";
-import useAuth from "../hooks/useAuth.js";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const SignUp = () => {
-  const {
-    activeUser,
-    onLogin,
-    onLogout,
-    handleCloseLogin,
-    showLogin,
-    show,
-    handleShowLogin,
-    handleShow,
-    onSignup,
-    handleClose,
-  } = useAuth();
+  const [email, setEmail] = useState();
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const [name, setName] = useState();
+  const { signup, error } = useAuthContext();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [nickname, setNickname] = useState("");
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
 
-  const [isSigningUp, setIsSigningUp] = useState(false);
-  const [isSignupError, setIsSignupError] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
+  };
 
-  async function handleSignup() {
-    setIsSigningUp(true);
-    setIsSignupError(false);
-    try {
-      await onSignup(email, password, firstname, nickname, confirmPassword);
-    } catch (err) {
-      console.log(err);
-      setIsSignupError(true);
-    } finally {
-      setIsSigningUp(false);
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleSignup = () => {
+    if (password === confirmPassword) {
+      let new_user = {
+        email: email,
+        name: name,
+        username: username,
+        password: password,
+      };
+      signup(new_user);
     }
-  }
+  };
+
   return (
     <div className="form-container">
       <form className="form">
@@ -55,8 +60,7 @@ const SignUp = () => {
             className="form-control"
             id="exampleInputPassword1"
             placeholder="First Name"
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
+            onChange={handleName}
           />
         </div>
         <div className="form-group">
@@ -66,8 +70,7 @@ const SignUp = () => {
             className="form-control"
             id="exampleInputPassword1"
             placeholder="Nickname"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
+            onChange={handleUsername}
           />
         </div>
         <div className="form-group">
@@ -78,8 +81,7 @@ const SignUp = () => {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmail}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -92,19 +94,28 @@ const SignUp = () => {
             className="form-control"
             id="exampleInputPassword1"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePassword}
           />
         </div>
-
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Confirm Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="Confirm Password"
+            onChange={handleConfirmPassword}
+          />
+        </div>
+        {error && <div>Your information is incorrect.</div>}
         <button
-          type="submit"
+          type="button"
           className="btn btn-primary"
           onClick={handleSignup}
         >
-          {isSigningUp ? "Signing up..." : "Sign up"}
+          {" "}
+          Submit
         </button>
-        {isSignupError && <p>Signup failed. Please try again.</p>}
       </form>
     </div>
   );

@@ -19,7 +19,7 @@ async function getHighest(id) {
       .from("scores")
       .select("score")
       .where({ userId: id })
-      .orderBy("score", "desc")
+      .orderBy("score", "asc")
       .limit(1);
     console.log(queryResult);
     return queryResult;
@@ -29,7 +29,6 @@ async function getHighest(id) {
 }
 
 async function getLastScore(id) {
-  console.log(id);
   try {
     const queryResult = await gameappDb
       .from("scores")
@@ -37,7 +36,7 @@ async function getLastScore(id) {
       .where({ userId: id })
       .orderBy("created_at", "desc")
       .limit(1);
-    console.log(queryResult);
+    console.log("result", queryResult);
     return queryResult;
   } catch (err) {
     console.log(err);

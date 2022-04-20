@@ -26,7 +26,10 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
-  res.status(201).send(req.body);
+  console.log(req.body);
+  const user = await userModel.login(req.body);
+  console.log(user, "works");
+  res.status(201).send(user);
 }
 
 async function logout(req, res) {

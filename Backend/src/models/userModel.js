@@ -17,7 +17,7 @@ async function signup(newUser) {
       }
     }
 
-async function login(email, password) {
+async function login({email, password}) {
   try {
     console.log(email);
     console.log(password);
@@ -50,13 +50,13 @@ async function signup(newUser) {
   }
 }
 
-async function login(email, password) {
+async function login({ email, password }) {
   try {
     const user = await gameappDb.from("users").where({ email: email });
 
     if (user && user.length !== 0) {
       const validPassword = await bcrypt.compare(password, user[0].password);
-      console.log(validPassword)
+      console.log(validPassword);
       if (validPassword) {
         return { status: "success", user: user };
       } else {

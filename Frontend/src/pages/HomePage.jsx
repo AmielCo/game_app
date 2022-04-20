@@ -1,5 +1,4 @@
 import React from "react";
-import useAuth from "../hooks/useAuth";
 import { NavLink } from "react-router-dom";
 import "./HomePage.css"
 

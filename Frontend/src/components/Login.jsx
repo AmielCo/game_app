@@ -7,10 +7,27 @@ Phone number
 */
 
 import React, { useState } from "react";
+import axios from "axios";
 import "./SignUp.css";
-import useAuth from "../hooks/useAuth.js";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuthContext();
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+  }
+
+  async function handleSubmit() {
+    login(email, password);
+  }
+
   return (
     <div className="form-container">
       <form className="form">
@@ -22,6 +39,7 @@ const Login = () => {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Enter email"
+            onChange={handleEmailChange}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -34,10 +52,15 @@ const Login = () => {
             className="form-control"
             id="exampleInputPassword1"
             placeholder="Password"
+            onChange={handlePasswordChange}
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button
+          onClick={handleSubmit}
+          type="button"
+          className="btn btn-primary"
+        >
           Login
         </button>
       </form>

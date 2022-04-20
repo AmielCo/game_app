@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Game.css";
 import SingleCard from "./SingleCard";
+import { useScoreContext } from "../contexts/ScoreContext";
+import GoBack from "./GoBack";
 
 const cardImages = [
   { src: "/img/helmet-1.png", matched: false },
@@ -16,7 +18,11 @@ function Game() {
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [matches, setMatches] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [sendScoreButton, setSendScoreButton] = useState(false);
+
+  const { sendScore } = useScoreContext();
 
   //shuffle cards
   const shuffleCards = () => {
@@ -27,6 +33,7 @@ function Game() {
     setChoiceTwo(null);
     setCards(shuffleCards);
     setTurns(0);
+    setMatches(0);
   };
 
   //handle a choice
@@ -42,6 +49,7 @@ function Game() {
         setCards((prevCards) => {
           return prevCards.map((card) => {
             if (card.src === choiceOne.src) {
+              setMatches(matches + 1);
               return { ...card, matched: true };
             } else {
               return card;
@@ -65,14 +73,25 @@ function Game() {
     setDisabled(false);
   };
 
+  const handleSendScore = () => {
+    sendScore(turns);
+    setSendScoreButton(false);
+  };
+
   //start game automatically
   useEffect(() => {
     shuffleCards();
+    setMatches(0);
   }, []);
+
+  useEffect(() => {
+    if (matches === 6) {
+      setSendScoreButton(true);
+    }
+  }, [matches]);
 
   return (
     <div>
-  
       <div className="Game">
         <h1>Magic Match</h1>
         <button onClick={shuffleCards}>New Game</button>
@@ -90,6 +109,8 @@ function Game() {
         </div>
         <p>Turns: {turns}</p>
       </div>
+      {sendScoreButton && <button onClick={handleSendScore}>Log Score</button>}
+      <GoBack />
     </div>
   );
 }
