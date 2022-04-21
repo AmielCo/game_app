@@ -13,9 +13,9 @@ export function ScoreContextProvider({ children }) {
   const [highScore, setHighScore] = useState([]);
   const { currentUser } = useAuthContext();
 
-  const getRecentScore = (id) => {
+  const getRecentScore = async (id) => {
     console.log(id);
-    axios.get(`http://localhost:8080/scores/lastScore/${id}`).then((res) => {
+    await axios.get(`http://localhost:8080/scores/lastScore/${id}`).then((res) => {
       if (res.data[0]) {
         setRecentScore(res.data[0].score);
       } else {
@@ -24,9 +24,9 @@ export function ScoreContextProvider({ children }) {
     });
   };
 
-  const getHighScore = (id) => {
+  const getHighScore = async (id) => {
     console.log(id);
-    axios.get(`http://localhost:8080/scores/highScore/${id}`).then((res) => {
+    await axios.get(`http://localhost:8080/scores/highScore/${id}`).then((res) => {
       if (res.data[0]) {
         setHighScore(res.data[0].score);
       } else {
@@ -35,12 +35,12 @@ export function ScoreContextProvider({ children }) {
     });
   };
 
-  const sendScore = (score) => {
+  const sendScore = async (score) => {
     let newScore = {
       userId: currentUser.id,
       score: score,
     };
-    axios
+    await axios
       .post(`http://localhost:8080/scores/addScore`, newScore)
       .then((res) => {
         if (res) {

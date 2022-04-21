@@ -21,18 +21,23 @@ export function AuthContextProvider({ children }) {
       password: password,
     };
     console.log(user);
-    await axios.post("http://localhost:8080/users/login", user).then((res) => {
-      if (res.status === 201) {
-        setError(false);
+    await axios
+      .post("http://localhost:8080/users/login", user)
+      .then((res) => {
+        if (res.status === 201) {
+          setError(false);
 
-        setCurrentUser(res.data.user[0]);
-        setAuth(true);
-        navigate("/LoggedInPage");
-      } else {
+          setCurrentUser(res.data.user[0]);
+          setAuth(true);
+          navigate("/LoggedInPage");
+        } else {
+          setError(true);
+        }
+      })
+      .catch((err) => {
         setError(true);
-      }
-    })
-    .catch((err) => { setError(true); console.log(err)});
+        console.log(err);
+      });
   };
 
   const logout = () => {
@@ -42,9 +47,9 @@ export function AuthContextProvider({ children }) {
     }
   };
 
-  const signup = (user) => {
+  const signup = async (user) => {
     console.log(user);
-    axios
+    await axios
       .post("http://localhost:8080/users/signup", user)
       .then((res) => {
         console.log(res);
@@ -56,7 +61,10 @@ export function AuthContextProvider({ children }) {
           setError(true);
         }
       })
-      .catch((err) => { setError(true); console.log(err)});
+      .catch((err) => {
+        setError(true);
+        console.log(err);
+      });
   };
 
   useEffect(() => console.log(error), [error]);
