@@ -16,7 +16,7 @@ const LoggedInPage = () => {
           <h2>Welcome to the Memory Game {currentUser.username}</h2>
 
           <h3>Last Score: {recentScore}</h3>
-          <h3>High Score: {highScore}</h3>
+          <h3>Best Score: {highScore}</h3>
 
           <p>
             The goal of the game is to find all the pairs of cards. The cards

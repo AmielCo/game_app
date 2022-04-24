@@ -20,6 +20,7 @@
     align-items: center;
    border: 2px solid purple;
     background-color: #e3ad3d;
+    border-radius: 10px;
     margin: 6rem;
 }
 
