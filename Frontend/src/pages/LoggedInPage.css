@@ -5,12 +5,44 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 p {
     font-size: 20px;
     font-weight: bold;
-    padding: 20px;
-    margin: 20px;
+    padding: 15px;
+    margin: 10px;
+}
+
+.home-page-content {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid purple;
+    background-color: #e3ad3d;
+    padding: 10px;
+}
+
+.home-page-cont {
+    background-image: url(../background-img/2022-04-24.png);
+    top: 0px;
+    padding: 10px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.85;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+        padding: 10px;
 }

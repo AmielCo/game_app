@@ -12,10 +12,33 @@
   align-items: center;
 }
 
+.home-page-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+   border: 2px solid purple;
+    background-color: #e3ad3d;
+    margin: 6rem;
+}
+
 body {
   background: #1b1523;
   color: #fff;
   font-family: Raleway, sans-serif;
   font-size: 1.5em;
   padding: 1rem;
+}
+
+.home-page-cont{
+  background-image: url(../background-img/2022-04-24.png);  
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
 }

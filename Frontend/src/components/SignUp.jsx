@@ -9,6 +9,7 @@ Phone number
 import React, { useState, useEffect } from "react";
 import "./SignUp.css";
 import { useAuthContext } from "../contexts/AuthContext";
+import GoBackToMain from "./GoBackToMain";
 
 const SignUp = () => {
   const [email, setEmail] = useState();
@@ -116,6 +117,7 @@ const SignUp = () => {
           {" "}
           Submit
         </button>
+        <GoBackToMain />
       </form>
     </div>
   );

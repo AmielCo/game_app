@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./SignUp.css";
 import { useAuthContext } from "../contexts/AuthContext";
+import GoBackToMain from "./GoBackToMain";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -63,6 +64,7 @@ const Login = () => {
         >
           Login
         </button>
+        <GoBackToMain />
       </form>
     </div>
   );
